@@ -65,6 +65,14 @@ app.get("/users", (req, res)=>{
     })
 })
 
+app.get("/users/:id", (req, res)=>{
+    return knex.select().where("id", req.params.id).table("users").then(data=>{
+        res.send({
+            data
+        })
+    })
+})
+
 app.post("/users", (req , res)=>{
     return knex.table("users").insert({
         name:req.body.name,

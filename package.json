@@ -1,0 +1,16 @@
+{
+  "name": "tokoonline",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "danilrafiqi",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "knex": "^0.21.18",
+    "sqlite3": "^5.0.2"
+  },
+  "scripts": {
+    "start": "node app.js"
+  }
+}

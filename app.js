@@ -114,8 +114,8 @@ app.put("/users/:id", (req , res)=>{
 })
 
 app.delete("/users/:id", (req, res)=>{
-    return knex.table("users").where('id', req.params.id).del().then((res)=>{
-        console.log("ssasa",res)
+    return knex.table("users").where('id', req.params.id).del().then((data)=>{
+        console.log("ssasa",data)
         res.send({
             data:[],
             message:"success"

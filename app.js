@@ -44,6 +44,7 @@ app.post("/login", (req , res)=>{
                 accessToken: generateJwt({id:data[0].id})
             })
         }else{
+            res.statusCode = 401
             res.send({
                 message: "gagal"
             })

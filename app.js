@@ -52,7 +52,7 @@ app.post("/login", (req , res)=>{
 })
 //#endregion
 
-// app.use(authMiddleware)
+app.use(authMiddleware)
 
 //#region PRODUCT
 app.get("/products", (req, res)=>{
@@ -171,7 +171,6 @@ app.delete("/users/:id", (req, res)=>{
 //#endregion
 
 //#region CATEGORIES
-
 app.get("/categories", (req, res)=>{
     return knex.select().table("categories").then(data=>{
         res.send(data)
@@ -243,6 +242,85 @@ app.delete("/categories/:id", (req, res)=>{
     })
 })
 //#region 
+
+//#region COUPON
+app.get("/coupons", (req, res)=>{
+    return knex.select().table("coupons").then(data=>{
+        res.json(data)
+    }).catch(err=>{
+        res.statusCode = 500,
+        res.json({
+            code:5001,
+            message:"failed to get coupons"
+        })
+    })
+})
+
+app.get("/coupons/:id", (req, res)=>{
+    return knex.select().where('id', req.params.id).table("coupons").then(data=>{
+        res.json(data[0])
+    }).catch(err=>{
+        res.statusCode = 500,
+        res.json({
+            code:5001,
+            message:"failed to get coupons"
+        })
+    })
+})
+
+app.post("/coupons", (req, res)=>{
+    return knex.insert({
+        code:req.body.code,
+        description:req.body.description,
+    }).table("coupons").then(data=>{
+        res.json({
+            code:2000,
+            message:"success to create coupons"
+        })
+    }).catch(err=>{
+        res.statusCode = 500,
+        res.json({
+            code:5001,
+            message:"failed to create coupons"
+        })
+    })
+})
+
+app.put("/coupons/:id", (req, res)=>{
+    return knex.update({
+        code:req.body.code,
+        description:req.body.description,
+    }).table("coupons").where('id', req.params.id).then(data=>{
+        res.json({
+            code:2000,
+            message:"success to update coupons"
+        })
+    }).catch(err=>{
+        res.statusCode = 500,
+        res.json({
+            code:5001,
+            message:"failed to update coupons"
+        })
+    })
+})
+
+app.delete("/coupons/:id", (req, res)=>{
+    return knex.delete().table("coupons").where('id', req.params.id).then(data=>{
+        res.json({
+            code:2000,
+            message:"success to delete coupons"
+        })
+    }).catch(err=>{
+        res.statusCode = 500,
+        res.json({
+            code:5001,
+            message:"failed to delete coupons"
+        })
+    })
+})
+
+//#endregion
+
 
 app.listen(port, ()=>{
     console.log(`server running at http://localhost:${port}`)

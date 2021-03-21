@@ -4,7 +4,11 @@ const port = 4000
 const knex = require('./knex');
 const cors = require('cors')
 const { hashPassword, generateJwt, comparePassword } = require("./utils");
-const authMiddleware = require('./middleware/auth')
+const authMiddleware = require('./middleware/auth');
+const delivery = require('./modules/delivery');
+const repository = require("./modules/repository");
+const usecase = require("./modules/usecase");
+
 app.use(cors())
 app.use(express.json())
 app.get("/", (req, res)=>{
@@ -53,7 +57,7 @@ app.post("/login", (req , res)=>{
 })
 //#endregion
 
-app.use(authMiddleware)
+// app.use(authMiddleware)
 
 //#region PRODUCT
 app.get("/products", (req, res)=>{
@@ -172,76 +176,9 @@ app.delete("/users/:id", (req, res)=>{
 //#endregion
 
 //#region CATEGORIES
-app.get("/categories", (req, res)=>{
-    return knex.select().table("categories").then(data=>{
-        res.send(data)
-    }).catch(err=>{
-        console.log("err",err)
-        res.json({
-            code:5001,
-            message:"error fetch"
-        })
-    })
-})
-
-app.get("/categories/:id", (req, res)=>{
-    return knex.select().where("id", req.params.id).table("categories").then(data=>{
-        res.send(data[0])
-    }).catch(err=>{
-        console.log("err",err)
-        res.json({
-            code:5001,
-            message:"error fetch"
-        })
-    })
-})
-
-app.post("/categories", (req, res)=>{
-    return knex.table("categories").insert({
-        name:req.body.name
-    }).then(data=>{
-        res.json({
-            code: 2000,
-            message:"Success create categories"
-        })
-    }).catch(err=>{
-        res.json({
-            code : 5001,
-            message:"error create data"
-        })
-    })
-})
-
-app.put("/categories/:id", (req, res)=>{
-    return knex.table("categories").where("id", req.params.id).update({
-        name:req.body.name
-    }).then(data=>{
-        res.json({
-            code: 2000,
-            message:"Success update categories"
-        })
-    }).catch(err=>{
-        res.json({
-            code : 5001,
-            message:"error create data"
-        })
-    })
-})
-
-
-app.delete("/categories/:id", (req, res)=>{
-    return knex.table("categories").where("id", req.params.id).del().then(data=>{
-        res.json({
-            code: 2000,
-            message:"Success delete categories"
-        })
-    }).catch(err=>{
-        res.json({
-            code : 5001,
-            message:"error delete data"
-        })
-    })
-})
+const categoriesRepo = repository.newCategoriesRepository(knex)
+const categoriesUseCase = usecase.newCategoriesUseCase(categoriesRepo)
+delivery.newCategoriesController(app, categoriesUseCase)
 //#region 
 
 //#region COUPON

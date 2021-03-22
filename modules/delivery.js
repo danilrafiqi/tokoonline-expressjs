@@ -12,3 +12,6 @@ exports.newUsersController = newUsersController
 
 const newAuthController = require("./auth/delivery");
 exports.newAuthController = newAuthController
+
+const newCartsController = require("./carts/delivery");
+exports.newCartsController = newCartsController

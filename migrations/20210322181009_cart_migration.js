@@ -8,9 +8,8 @@ exports.up = function(knex) {
         table.foreign('product_id').references('products.id')
         table.integer('quantity').notNullable();
     })
-  };
+};
   
-  exports.down = function(knex) {
-    return knex.schema.dropTable("carts")
-  };
-  
+exports.down = function(knex) {
+  return knex.schema.dropTable("carts")
+};

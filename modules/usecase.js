@@ -15,3 +15,6 @@ exports.newAuthUseCase = newAuthUseCase
 
 const newCartsUseCase = require("./carts/usecase");
 exports.newCartsUseCase = newCartsUseCase
+
+const newAddressUseCase = require("./address/usecase");
+exports.newAddressUseCase = newAddressUseCase

@@ -15,3 +15,6 @@ exports.newAuthRepository = newAuthRepository
 
 const newCartsRepository = require("./carts/repository")
 exports.newCartsRepository = newCartsRepository
+
+const newAddressRepository = require("./address/repository")
+exports.newAddressRepository = newAddressRepository

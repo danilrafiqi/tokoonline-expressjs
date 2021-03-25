@@ -1,3 +1,5 @@
+const auth = require("../../../middleware/auth")
+
 module.exports = (app, usecase)=> {
     const getAllCoupons= async(_, res)=>{
         try {
@@ -60,6 +62,7 @@ module.exports = (app, usecase)=> {
         }
     }
 
+    app.use(auth)
     app.get("/coupons", getAllCoupons)
     app.get("/coupons/:id", getCouponsById)
     app.post("/coupons", createCoupons)

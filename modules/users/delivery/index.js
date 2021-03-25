@@ -1,3 +1,4 @@
+const auth = require('../../../middleware/auth')
 const {hashPassword} = require('../../../utils')
 module.exports = (app, usecase)=> {
     const getAllUsers= async(_, res)=>{
@@ -64,7 +65,7 @@ module.exports = (app, usecase)=> {
             res.status(500).json(error)
         }
     }
-
+    app.use(auth)
     app.get("/users", getAllUsers)
     app.get("/users/:id", getUsersById)
     app.post("/users", createUsers)

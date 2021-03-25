@@ -1,19 +1,19 @@
 const auth = require("../../../middleware/auth")
 
 module.exports = (app, usecase)=> {
-    const getAllCategories= async(_, res)=>{
+    const getAllAddressByUserId= async(req, res)=>{
         try {
-            const data = await usecase.getAllCategories()
+            const data = await usecase.getAllAddressByUserId(req.user.id)
             res.send(data)
         } catch (error) {
             res.statusCode = 500
             res.send(error)
         }
-    }
+    }  
 
-    const getCategoriesById = async (req, res)=>{
+    const getAddressById = async (req, res)=>{
         try {
-            const data = await usecase.getCategoriesById(req.params.id)
+            const data = await usecase.getAddressById(req.params.id)
             res.send(data)
         } catch (error) {
             res.statusCode = 500
@@ -21,12 +21,13 @@ module.exports = (app, usecase)=> {
         }        
     }
 
-    const createCategories = async(req, res)=>{
+    const createAddress = async(req, res)=>{
         try {
             const body = {
-                name:req.body.name
+                address:req.body.address,
+                user_id:req.user.id
             }
-            await usecase.createCategories(body)
+            await usecase.createAddress(body)
             res.status(200).json({
                 message: "success"
             })
@@ -35,12 +36,13 @@ module.exports = (app, usecase)=> {
         }
     }
 
-    const updateCategoriesById = async(req, res)=>{
+    const updateAddressById = async(req, res)=>{
         try {
             const body = {
-                name:req.body.name
+                address:req.body.address,
+                user_id:req.user.id
             }
-            await usecase.updateCategories(req.params.id, body)
+            await usecase.updateAddressById(req.params.id, body)
             res.status(200).json({
                 message: "success"
             })
@@ -49,9 +51,9 @@ module.exports = (app, usecase)=> {
         }                
     }
 
-    const deleteCategoriesById= async(req, res)=>{
+    const deleteAddressById= async(req, res)=>{
         try {
-            await usecase.deleteCategories(req.params.id)
+            await usecase.deleteAddressById(req.params.id)
             res.status(200).json({
                 message: "success"
             })
@@ -61,9 +63,9 @@ module.exports = (app, usecase)=> {
     }
 
     app.use(auth)
-    app.get("/categories", getAllCategories)
-    app.get("/categories/:id", getCategoriesById)
-    app.post("/categories", createCategories)
-    app.put("/categories/:id", updateCategoriesById)
-    app.delete("/categories/:id", deleteCategoriesById)
+    app.get("/address", getAllAddressByUserId)
+    app.get("/address/:id", getAddressById)
+    app.post("/address", createAddress)
+    app.put("/address/:id", updateAddressById)
+    app.delete("/address/:id", deleteAddressById)
 }

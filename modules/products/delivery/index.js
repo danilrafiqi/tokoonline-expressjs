@@ -1,3 +1,5 @@
+const auth = require("../../../middleware/auth")
+
 module.exports = (app, usecase)=> {
     const getAllProducts= async(_, res)=>{
         try {
@@ -63,7 +65,8 @@ module.exports = (app, usecase)=> {
             res.status(500).json(error)
         }
     }
-
+    
+    app.use(auth)
     app.get("/products", getAllProducts)
     app.get("/products/:id", getProductsById)
     app.post("/products", createProducts)

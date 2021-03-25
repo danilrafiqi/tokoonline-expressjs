@@ -54,6 +54,12 @@ const cartsUseCase = usecase.newCartsUseCase(cartsRepo)
 delivery.newCartsController(app, cartsUseCase)
 //#region 
 
+//#region ADDRESSS
+const addressRepo = repository.newAddressRepository(knex)
+const addressUseCase = usecase.newAddressUseCase(addressRepo)
+delivery.newAddressController(app, addressUseCase)
+//#region 
+
 app.listen(port, ()=>{
     console.log(`server running at http://localhost:${port}`)
 })

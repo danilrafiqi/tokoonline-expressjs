@@ -12,7 +12,7 @@ const comparePassword = (password, hash) => {
 
 const generateJwt = payload => {
     return jwt.sign(payload, secret,{
-        expiresIn: '1h'
+        expiresIn: '24h'
     })
 }
   

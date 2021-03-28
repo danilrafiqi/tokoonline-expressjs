@@ -4,6 +4,8 @@ exports.up = function(knex) {
       table.increments('id');
       table.string("code", 100).unique().notNullable();
       table.string('description', 255);
+      table.integer('percentage');
+      table.integer('fixedDiscount');
   })
 };
 

@@ -60,6 +60,14 @@ const addressUseCase = usecase.newAddressUseCase(addressRepo)
 delivery.newAddressController(app, addressUseCase)
 //#region 
 
+//#region ORDERS
+const ordersRepo = repository.newOrdersRepository(knex)
+console.log("ordersRepo")
+const ordersUseCase = usecase.newOrdersUseCase(ordersRepo)
+console.log("ordersUseCase")
+delivery.newOrdersController(app, ordersUseCase)
+//#region 
+
 app.listen(port, ()=>{
     console.log(`server running at http://localhost:${port}`)
 })

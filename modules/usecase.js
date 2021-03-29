@@ -18,3 +18,6 @@ exports.newCartsUseCase = newCartsUseCase
 
 const newAddressUseCase = require("./address/usecase");
 exports.newAddressUseCase = newAddressUseCase
+
+const newOrdersUseCase = require("./orders/usecase");
+exports.newOrdersUseCase = newOrdersUseCase

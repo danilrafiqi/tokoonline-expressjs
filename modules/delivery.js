@@ -18,3 +18,6 @@ exports.newCartsController = newCartsController
 
 const newAddressController = require("./address/delivery");
 exports.newAddressController = newAddressController
+
+const newOrdersController = require("./orders/delivery");
+exports.newOrdersController = newOrdersController

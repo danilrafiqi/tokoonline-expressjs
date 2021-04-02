@@ -6,6 +6,8 @@ exports.up = function(knex) {
       table.string('description', 255);
       table.integer('percentage');
       table.integer('fixedDiscount');
+      table.integer('quantity');
+      table.boolean('active');
   })
 };
 

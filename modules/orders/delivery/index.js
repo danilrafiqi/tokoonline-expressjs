@@ -30,6 +30,16 @@ module.exports = (app, usecase) => {
       );
       res.send(data);
     } catch (error) {
+      res.statusCode = 500;
+      res.send(error);
+    }
+  };
+
+  const getOrdersById = async (req, res) => {
+    try {
+      const data = await usecase.getOrdersById(req.params.id);
+      res.send(data);
+    } catch (error) {
       console.log("dsddaasa", error);
       res.statusCode = 500;
       res.send(error);
@@ -74,28 +84,11 @@ module.exports = (app, usecase) => {
   //     }
   // }
 
-  // const getCartsById = async (req, res)=>{
-  //     try {
-  //         const data = await usecase.getCartsById(req.params.id)
-  //         res.send(data)
-  //     } catch (error) {
-  //         res.statusCode = 500
-  //         res.send(error)
-  //     }
-  // }
-
   app.use(authMiddleware);
   app.post("/checkout", checkout);
   app.get("/orders", getAllOrdersByCustomer);
+  app.get("/orders/:id", getOrdersById);
   // app.delete("/carts", deleteAllCarts)
   // app.delete("/carts/:id", deleteCartsById)
   // // app.get("/carts", getAllCarts)
-  // app.get("/carts/:id", getCartsById)
 };
-// customer app
-// add cart
-// update cart (increment, decrement)
-// delete cart
-// delete all cart
-// checkout
-// retrieve cart

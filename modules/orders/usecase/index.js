@@ -5,6 +5,9 @@ module.exports = (repository) => {
   module.getAllOrdersByCustomer = (customerId, pagination) => {
     return repository.getAllOrdersByCustomer(customerId, pagination);
   };
+  module.getOrdersById = (id) => {
+    return repository.getOrdersById(id);
+  };
   // module.updateCarts= (id,body)=>{
   //     return repository.updateCarts(id,body)
   // }
@@ -13,9 +16,6 @@ module.exports = (repository) => {
   // }
   // module.deleteAllCarts= (userId)=>{
   //     return repository.deleteAllCarts(userId)
-  // }
-  // module.getCartsById= (id)=>{
-  //     return repository.getCartsById(id)
   // }
   return module;
 };

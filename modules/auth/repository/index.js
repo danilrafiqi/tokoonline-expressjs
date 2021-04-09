@@ -40,7 +40,6 @@ module.exports = (knex) => {
 
       query
         .then((data) => {
-          console.log("data", data, password);
           if (data) {
             if (comparePassword(password, data.password)) {
               resolve({

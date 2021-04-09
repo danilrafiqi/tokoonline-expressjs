@@ -1,16 +1,9 @@
-const { hashPassword } = require("../../../utils");
 const authMiddleware = require("../../../middleware/auth");
-// {
-//     address_id
-//     coupon_id
-//     total
-//     cart:cart_id[]
-// }
 module.exports = (app, usecase) => {
   const checkout = async (req, res) => {
     try {
       const body = {
-        user_id: req.user.id,
+        customer_id: req.user.type_id,
         address_id: req.body.address_id,
         coupon_id: req.body.coupon_id,
         cart: req.body.cart,
@@ -21,17 +14,23 @@ module.exports = (app, usecase) => {
         message: "success",
       });
     } catch (error) {
-      console.log("errorrrrr", error);
       res.status(500).json(error);
     }
   };
 
-  const getAllOrdersByUsersId = async (req, res) => {
+  const getAllOrdersByCustomer = async (req, res) => {
     try {
-      const data = await usecase.getAllOrdersByUsersId(req.user.id);
+      const pagination = {
+        perPage: req.query.perPage,
+        currentPage: req.query.currentPage,
+      };
+      const data = await usecase.getAllOrdersByCustomer(
+        req.user.type_id,
+        pagination
+      );
       res.send(data);
     } catch (error) {
-      console.log("asdf", error);
+      console.log("dsddaasa", error);
       res.statusCode = 500;
       res.send(error);
     }
@@ -87,7 +86,7 @@ module.exports = (app, usecase) => {
 
   app.use(authMiddleware);
   app.post("/checkout", checkout);
-  app.get("/orders", getAllOrdersByUsersId);
+  app.get("/orders", getAllOrdersByCustomer);
   // app.delete("/carts", deleteAllCarts)
   // app.delete("/carts/:id", deleteCartsById)
   // // app.get("/carts", getAllCarts)

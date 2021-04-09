@@ -3,7 +3,11 @@ const auth = require("../../../middleware/auth");
 module.exports = (app, usecase) => {
   const getAllAddressByUserId = async (req, res) => {
     try {
-      const data = await usecase.getAllAddressByUserId(req.user.id);
+      const pagination = {
+        perPage: req.query.perPage,
+        currentPage: req.query.currentPage,
+      };
+      const data = await usecase.getAllAddressByUserId(req.user.id, pagination);
       res.send(data);
     } catch (error) {
       res.statusCode = 500;
@@ -25,9 +29,8 @@ module.exports = (app, usecase) => {
     try {
       const body = {
         address: req.body.address,
-        user_id: req.user.id,
       };
-      await usecase.createAddress(body);
+      await usecase.createAddress(req.user.type_id, body);
       res.status(200).json({
         message: "success",
       });
@@ -40,14 +43,13 @@ module.exports = (app, usecase) => {
     try {
       const body = {
         address: req.body.address,
-        user_id: req.user.id,
       };
       await usecase.updateAddressById(req.params.id, body);
       res.status(200).json({
         message: "success",
       });
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).send(error);
     }
   };
 

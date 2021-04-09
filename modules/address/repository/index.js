@@ -1,13 +1,43 @@
 const table = "addresses";
 module.exports = (knex) => {
-  module.getAllAddressByUserId = (userId) => {
-    return knex.select().where("user_id", userId).table(table);
+  module.getAllAddressByUserId = (userId, pagination) => {
+    return knex
+      .select("addresses.id", "addresses.address")
+      .where("users.id", userId)
+      .table("users")
+      .innerJoin("customers", "customers.user_id", "=", "users.id")
+      .innerJoin(
+        "customers_addresses",
+        "customers_addresses.customer_id",
+        "=",
+        "customers.id"
+      )
+      .innerJoin(
+        "addresses",
+        "customers_addresses.address_id",
+        "=",
+        "addresses.id"
+      )
+      .paginate(pagination);
   };
   module.getAddressById = (id) => {
     return knex.select().where("id", id).first().table(table);
   };
-  module.createAddress = (body) => {
-    return knex.table(table).insert(body);
+  module.createAddress = (customerId, payload) => {
+    knex.transaction(function (trx) {
+      return trx
+        .insert({
+          address: payload.address,
+        })
+        .into(table)
+        .then((ids) => {
+          const customerAddress = {
+            customer_id: customerId,
+            address_id: ids[0],
+          };
+          return trx("customers_addresses").insert(customerAddress);
+        });
+    });
   };
   module.updateAddressById = (id, body) => {
     return knex.table(table).where("id", id).update(body);

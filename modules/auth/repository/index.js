@@ -7,38 +7,48 @@ module.exports = (knex) => {
   };
   module.login = (email, password, type) => {
     return new Promise((resolve, reject) => {
-      let query = knex.select().where("email", email).first().table(table);
+      let query;
       switch (type) {
         case "customers":
-          query = query.innerJoin(
-            "customers",
-            "customers.user_id",
-            "=",
-            "users.id"
-          );
+          query = knex
+            .select("*", "customers.id as type_id")
+            .where("email", email)
+            .first()
+            .table(table)
+            .innerJoin("customers", "customers.user_id", "=", "users.id");
           break;
         case "stores":
-          query = query.innerJoin("stores", "stores.user_id", "=", "users.id");
+          query = knex
+            .select("*", "stores.id as type_id")
+            .where("email", email)
+            .first()
+            .table(table)
+            .innerJoin("stores", "stores.user_id", "=", "users.id");
           break;
         case "employees":
-          query = query.innerJoin(
-            "employess",
-            "employess.user_id",
-            "=",
-            "users.id"
-          );
+          query = knex
+            .select("*", "employees.id as type_id")
+            .where("email", email)
+            .first()
+            .table(table)
+            .innerJoin("employess", "employess.user_id", "=", "users.id");
           break;
         default:
           reject("ada error");
           break;
       }
+
       query
         .then((data) => {
           console.log("data", data, password);
           if (data) {
             if (comparePassword(password, data.password)) {
               resolve({
-                accessToken: generateJwt({ id: data.id, type }),
+                accessToken: generateJwt({
+                  id: data.id,
+                  type,
+                  type_id: data.type_id,
+                }),
               });
             } else {
               console.log("masuk sini");

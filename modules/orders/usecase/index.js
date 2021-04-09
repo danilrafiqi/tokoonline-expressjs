@@ -8,6 +8,12 @@ module.exports = (repository) => {
   module.getOrdersById = (id) => {
     return repository.getOrdersById(id);
   };
+  module.completeOrders = (id) => {
+    return repository.completeOrders(id);
+  };
+  module.cancelOrders = (id) => {
+    return repository.cancelOrders(id);
+  };
   // module.updateCarts= (id,body)=>{
   //     return repository.updateCarts(id,body)
   // }

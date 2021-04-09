@@ -109,7 +109,6 @@ module.exports = (knex) => {
   };
 
   module.getOrdersById = async (id) => {
-    console.log("getOrdersById");
     const result = await knex
       .select(
         "orders.id as _id",
@@ -187,5 +186,18 @@ module.exports = (knex) => {
     }, {});
     return Object.values(newData)[0];
   };
+
+  module.completeOrders = (id) => {
+    return knex.table(tableHeader).where("id", id).update({
+      status: "completed",
+    });
+  };
+
+  module.cancelOrders = (id) => {
+    return knex.table(tableHeader).where("id", id).update({
+      status: "canceled",
+    });
+  };
+
   return module;
 };

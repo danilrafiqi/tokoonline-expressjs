@@ -40,9 +40,30 @@ module.exports = (app, usecase) => {
       const data = await usecase.getOrdersById(req.params.id);
       res.send(data);
     } catch (error) {
-      console.log("dsddaasa", error);
       res.statusCode = 500;
       res.send(error);
+    }
+  };
+
+  const cancelOrders = async (req, res) => {
+    try {
+      await usecase.cancelOrders(req.params.id);
+      res.status(200).json({
+        message: "success",
+      });
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  };
+
+  const completeOrders = async (req, res) => {
+    try {
+      await usecase.completeOrders(req.params.id);
+      res.status(200).json({
+        message: "success",
+      });
+    } catch (error) {
+      res.status(500).json(error);
     }
   };
 
@@ -88,6 +109,8 @@ module.exports = (app, usecase) => {
   app.post("/checkout", checkout);
   app.get("/orders", getAllOrdersByCustomer);
   app.get("/orders/:id", getOrdersById);
+  app.patch("/orders/:id/cancel", cancelOrders);
+  app.patch("/orders/:id/complete", completeOrders);
   // app.delete("/carts", deleteAllCarts)
   // app.delete("/carts/:id", deleteCartsById)
   // // app.get("/carts", getAllCarts)

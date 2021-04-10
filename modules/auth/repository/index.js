@@ -2,8 +2,21 @@ const { comparePassword, generateJwt } = require("../../../utils");
 
 const table = "users";
 module.exports = (knex) => {
-  module.register = (body) => {
-    return knex.table(table).insert(body);
+  module.register = (body, type) => {
+    return knex.transaction(function (trx) {
+      return trx
+        .insert(body)
+        .into(table)
+        .then((ids) => {
+          if (type === "customers") {
+            return trx("customers").insert({
+              name: body.email,
+              phone: "0",
+              user_id: ids[0],
+            });
+          }
+        });
+    });
   };
   module.login = (email, password, type) => {
     return new Promise((resolve, reject) => {
@@ -40,6 +53,7 @@ module.exports = (knex) => {
 
       query
         .then((data) => {
+          console.log("datadata", data);
           if (data) {
             if (comparePassword(password, data.password)) {
               resolve({

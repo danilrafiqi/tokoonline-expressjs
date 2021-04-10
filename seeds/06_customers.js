@@ -9,7 +9,7 @@ exports.seed = function (knex) {
       return knex("customers").insert([
         {
           id: 1,
-          name: "danil.rafiqi@gmail.com",
+          name: "M Danil Rafiqi",
           phone: "085788598869",
           profilePicture: "default.jpg",
           user_id: 1,

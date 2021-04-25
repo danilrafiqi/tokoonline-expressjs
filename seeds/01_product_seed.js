@@ -29,6 +29,46 @@ exports.seed = function (knex) {
           stock: 10,
           image: "https://placeimg.com/480/480/tech",
         },
+        {
+          id: 4,
+          name: "ini name2",
+          description: "ini desc",
+          price: 100000,
+          stock: 10,
+          image: "https://placeimg.com/480/480/tech",
+        },
+        {
+          id: 5,
+          name: "ini name2",
+          description: "ini desc",
+          price: 100000,
+          stock: 10,
+          image: "https://placeimg.com/480/480/tech",
+        },
+        {
+          id: 6,
+          name: "ini name2",
+          description: "ini desc",
+          price: 100000,
+          stock: 10,
+          image: "https://placeimg.com/480/480/tech",
+        },
+        {
+          id: 7,
+          name: "ini name2",
+          description: "ini desc",
+          price: 100000,
+          stock: 10,
+          image: "https://placeimg.com/480/480/tech",
+        },
+        {
+          id: 8,
+          name: "ini name2",
+          description: "ini desc",
+          price: 100000,
+          stock: 10,
+          image: "https://placeimg.com/480/480/tech",
+        },
       ]);
     });
 };

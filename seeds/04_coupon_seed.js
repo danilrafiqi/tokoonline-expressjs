@@ -32,6 +32,24 @@ exports.seed = function (knex) {
           quantity: 10,
           active: true,
         },
+        {
+          id: 4,
+          code: "RAMADHAN2021",
+          description: "lorem",
+          percentage: 0,
+          fixedDiscount: 10000,
+          quantity: 10,
+          active: true,
+        },
+        {
+          id: 5,
+          code: "MUDIK",
+          description: "lorem",
+          percentage: 0,
+          fixedDiscount: 30000,
+          quantity: 10,
+          active: true,
+        },
       ]);
     });
 };

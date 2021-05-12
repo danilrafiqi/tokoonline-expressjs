@@ -12,7 +12,6 @@ module.exports = (app, usecase) => {
         message: "success",
       });
     } catch (error) {
-      console.log("errrr", error);
       res.status(500).send(error);
     }
   };
@@ -26,7 +25,6 @@ module.exports = (app, usecase) => {
       );
       res.status(200).json(data);
     } catch (error) {
-      console.log("erroror", error);
       res.status(500).json(error);
     }
   };

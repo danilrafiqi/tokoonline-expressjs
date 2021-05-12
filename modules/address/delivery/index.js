@@ -29,6 +29,9 @@ module.exports = (app, usecase) => {
     try {
       const body = {
         address: req.body.address,
+        description: req.body.description,
+        name: req.body.name,
+        phone: req.body.phone,
       };
       await usecase.createAddress(req.user.type_id, body);
       res.status(200).json({

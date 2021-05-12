@@ -8,7 +8,7 @@ module.exports = (knex) => {
       .groupBy("coupon_id");
 
     return knex
-      .select()
+      .select("code", "description", "fixedDiscount", "id", "percentage")
       .table(table)
       .whereNotIn(
         "id",

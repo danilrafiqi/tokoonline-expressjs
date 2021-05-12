@@ -2,7 +2,13 @@ const table = "addresses";
 module.exports = (knex) => {
   module.getAllAddressByUserId = (userId, pagination) => {
     return knex
-      .select("addresses.id", "addresses.address")
+      .select(
+        "addresses.id",
+        "addresses.address",
+        "addresses.name",
+        "addresses.description",
+        "addresses.phone"
+      )
       .where("users.id", userId)
       .table("users")
       .innerJoin("customers", "customers.user_id", "=", "users.id")
@@ -28,6 +34,9 @@ module.exports = (knex) => {
       return trx
         .insert({
           address: payload.address,
+          description: payload.description,
+          name: payload.name,
+          phone: payload.phone,
         })
         .into(table)
         .then((ids) => {

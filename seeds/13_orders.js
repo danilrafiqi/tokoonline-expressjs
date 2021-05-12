@@ -11,23 +11,6 @@ exports.seed = function (knex) {
           customer_id: 1,
           coupon_id: 1,
           total: 1000,
-          status: "ordered",
-        },
-        {
-          id: 2,
-          address_id: 1,
-          customer_id: 1,
-          coupon_id: 1,
-          total: 1000,
-          status: "ordered",
-        },
-        {
-          id: 3,
-          address_id: 1,
-          customer_id: 1,
-          coupon_id: 1,
-          total: 1000,
-          status: "ordered",
         },
       ]);
     });

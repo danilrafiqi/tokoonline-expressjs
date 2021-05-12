@@ -7,8 +7,11 @@ const delivery = require("./modules/delivery");
 const repository = require("./modules/repository");
 const usecase = require("./modules/usecase");
 const { attachPaginate } = require("knex-paginate");
+const bodyParser = require("body-parser");
 
 attachPaginate();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {
@@ -69,9 +72,7 @@ delivery.newAddressController(app, addressUseCase);
 
 //#region ORDERS
 const ordersRepo = repository.newOrdersRepository(knex);
-console.log("ordersRepo");
 const ordersUseCase = usecase.newOrdersUseCase(ordersRepo);
-console.log("ordersUseCase");
 delivery.newOrdersController(app, ordersUseCase);
 //#region
 

@@ -2,8 +2,8 @@ module.exports = (repository) => {
   module.checkout = (body) => {
     return repository.checkout(body);
   };
-  module.getAllOrdersByCustomer = (customerId, pagination) => {
-    return repository.getAllOrdersByCustomer(customerId, pagination);
+  module.getAllOrdersByCustomer = (customerId, pagination, status) => {
+    return repository.getAllOrdersByCustomer(customerId, pagination, status);
   };
   module.getOrdersById = (id) => {
     return repository.getOrdersById(id);

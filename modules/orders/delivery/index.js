@@ -19,15 +19,33 @@ module.exports = (app, usecase) => {
   };
 
   const getAllOrdersByCustomer = async (req, res) => {
+    const STATUS = [
+      "waiting",
+      "ordered",
+      "packed",
+      "sent",
+      "completed",
+      "canceled",
+      "all",
+    ];
     try {
       const pagination = {
         perPage: req.query.perPage,
         currentPage: req.query.currentPage,
       };
+
+      let status = req.query?.status;
+      if (!STATUS.includes(status)) {
+        res.statusCode = 400;
+        return res.send("invalid query");
+      }
+
       const data = await usecase.getAllOrdersByCustomer(
         req.user.type_id,
-        pagination
+        pagination,
+        status
       );
+
       res.send(data);
     } catch (error) {
       res.statusCode = 500;

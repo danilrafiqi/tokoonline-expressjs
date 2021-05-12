@@ -23,5 +23,9 @@ module.exports = (repository) => {
     return repository.updateCustomerProfile(id, body);
   };
 
+  module.updateCustomerProfilePicture = (id, body) => {
+    return repository.updateCustomerProfilePicture(id, body);
+  };
+
   return module;
 };

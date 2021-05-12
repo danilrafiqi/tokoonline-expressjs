@@ -8,7 +8,6 @@ exports.up = function (knex) {
     table.foreign("customer_id").references("customers.id");
     table.integer("coupon_id").nullable();
     table.foreign("coupon_id").references("coupons.id");
-    table.enum("status", ["ordered", "delivered", "completed", "canceled"]);
   });
 };
 

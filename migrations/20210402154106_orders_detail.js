@@ -5,6 +5,14 @@ exports.up = function (knex) {
     table.foreign("order_id").references("orders.id");
     table.integer("cart_id").notNullable();
     table.foreign("cart_id").references("carts.id");
+    table.enum("status", [
+      "waiting",
+      "ordered",
+      "packed",
+      "sent",
+      "completed",
+      "canceled",
+    ]);
   });
 };
 

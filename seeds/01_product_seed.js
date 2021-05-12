@@ -7,7 +7,7 @@ exports.seed = function (knex) {
       return knex("products").insert([
         {
           id: 1,
-          name: "ini name",
+          name: "ini product 1",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -15,7 +15,7 @@ exports.seed = function (knex) {
         },
         {
           id: 2,
-          name: "ini name2",
+          name: "ini product 2",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -23,7 +23,7 @@ exports.seed = function (knex) {
         },
         {
           id: 3,
-          name: "ini name2",
+          name: "ini product 3",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -31,7 +31,7 @@ exports.seed = function (knex) {
         },
         {
           id: 4,
-          name: "ini name2",
+          name: "ini product 4",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -39,7 +39,7 @@ exports.seed = function (knex) {
         },
         {
           id: 5,
-          name: "ini name2",
+          name: "ini product 5",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -47,7 +47,7 @@ exports.seed = function (knex) {
         },
         {
           id: 6,
-          name: "ini name2",
+          name: "ini product 6",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -55,7 +55,7 @@ exports.seed = function (knex) {
         },
         {
           id: 7,
-          name: "ini name2",
+          name: "ini product 7",
           description: "ini desc",
           price: 100000,
           stock: 10,
@@ -63,7 +63,7 @@ exports.seed = function (knex) {
         },
         {
           id: 8,
-          name: "ini name2",
+          name: "ini product 8",
           description: "ini desc",
           price: 100000,
           stock: 10,

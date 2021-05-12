@@ -17,5 +17,8 @@ module.exports = (knex) => {
   module.updateCustomerProfile = (id, body) => {
     return knex.table("customers").where("id", id).update(body);
   };
+  module.updateCustomerProfilePicture = (id, body) => {
+    return knex.table("customers").where("id", id).update(body);
+  };
   return module;
 };

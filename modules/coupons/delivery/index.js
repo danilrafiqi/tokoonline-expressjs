@@ -13,7 +13,6 @@ module.exports = (app, usecase) => {
       );
       res.send(data);
     } catch (error) {
-      console.log("dasasas", error);
       res.statusCode = 500;
       res.send(error);
     }

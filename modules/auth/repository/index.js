@@ -53,7 +53,6 @@ module.exports = (knex) => {
 
       query
         .then((data) => {
-          console.log("datadata", data);
           if (data) {
             if (comparePassword(password, data.password)) {
               resolve({
@@ -64,7 +63,6 @@ module.exports = (knex) => {
                 }),
               });
             } else {
-              console.log("masuk sini");
               reject({
                 message: "Authentication Failed",
               });
@@ -76,7 +74,6 @@ module.exports = (knex) => {
           }
         })
         .catch((err) => {
-          console.log("aslakslaksla", err);
           reject(err);
         });
     });

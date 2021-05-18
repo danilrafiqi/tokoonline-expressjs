@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "./public/assets/profile");
+    cb(null, "./public/assets/profile/customers");
   },
   filename: (req, file, cb) => {
     cb(null, req.user.id + "." + file.mimetype.split("/")[1]);
@@ -60,7 +60,8 @@ module.exports = (app, usecase) => {
   const updateCustomerProfilePicture = async (req, res) => {
     try {
       const body = {
-        profilePicture: req.body.profilePicture,
+        profilePicture:
+          "public/assets/profile/customers/" + req.body.profilePicture,
       };
       await usecase.updateCustomerProfilePicture(req.user.id, body);
       res.status(200).send({

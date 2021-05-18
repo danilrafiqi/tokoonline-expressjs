@@ -8,10 +8,13 @@ const repository = require("./modules/repository");
 const usecase = require("./modules/usecase");
 const { attachPaginate } = require("knex-paginate");
 const bodyParser = require("body-parser");
+const morgan = require("morgan");
 
 attachPaginate();
+app.use(morgan("tiny"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/public", express.static("public"));
 app.use(cors());
 app.use(express.json());
 app.get("/", (req, res) => {

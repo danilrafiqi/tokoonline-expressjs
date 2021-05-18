@@ -4,8 +4,12 @@ module.exports = (app, usecase) => {
   const getAllProducts = async (req, res) => {
     try {
       const pagination = {
-        perPage: req.query.perPage,
-        currentPage: req.query.currentPage,
+        perPage: req.query.perPage
+          ? parseInt(req.query.perPage, 10)
+          : undefined,
+        currentPage: req.query.currentPage
+          ? parseInt(req.query.currentPage, 10)
+          : undefined,
       };
       const data = await usecase.getAllProducts(pagination);
       res.send(data);

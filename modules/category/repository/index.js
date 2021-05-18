@@ -1,7 +1,7 @@
 const table = "categories";
 module.exports = (knex) => {
-  module.getAllCategories = () => {
-    return knex.select().table(table);
+  module.getAllCategories = ({ perPage, currentPage }) => {
+    return knex.select().table(table).paginate({ perPage, currentPage });
   };
   module.getCategoriesById = (id) => {
     return knex.select().where("id", id).first().table(table);

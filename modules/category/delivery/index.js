@@ -1,9 +1,17 @@
 const auth = require("../../../middleware/auth");
 
 module.exports = (app, usecase) => {
-  const getAllCategories = async (_, res) => {
+  const getAllCategories = async (req, res) => {
     try {
-      const data = await usecase.getAllCategories();
+      const pagination = {
+        perPage: req.query.perPage
+          ? parseInt(req.query.perPage, 10)
+          : undefined,
+        currentPage: req.query.currentPage
+          ? parseInt(req.query.currentPage, 10)
+          : undefined,
+      };
+      const data = await usecase.getAllCategories(pagination);
       res.send(data);
     } catch (error) {
       res.statusCode = 500;

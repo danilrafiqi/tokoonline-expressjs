@@ -11,7 +11,7 @@ exports.seed = function (knex) {
           id: 1,
           name: "M Danil Rafiqi",
           phone: "085788598869",
-          profilePicture: "default.jpg",
+          profilePicture: "public/assets/profile/customers/default.png",
           user_id: 1,
         },
       ]);

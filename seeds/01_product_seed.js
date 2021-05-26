@@ -13,7 +13,7 @@ exports.seed = function (knex) {
             description: faker.commerce.productDescription(),
             price: faker.commerce.price(),
             stock: 10,
-            image: "https://placeimg.com/480/480/tech",
+            image: `public/assets/product/${v + 1}.jpg`,
           };
         })
       );

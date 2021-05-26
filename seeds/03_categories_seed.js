@@ -5,12 +5,11 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex("categories").insert([
-        { id: 1, name: "Makanan" },
-        { id: 2, name: "Minuman" },
-        { id: 3, name: "Ibu dan Anak" },
-        { id: 4, name: "Kecantikan" },
-        { id: 5, name: "Kesehatan" },
-        { id: 6, name: "Dapur" },
+        { id: 1, name: "Handphone" },
+        { id: 2, name: "Komputer" },
+        { id: 3, name: "Gaming" },
+        { id: 4, name: "Olahraga" },
+        { id: 5, name: "Kamera" },
       ]);
     });
 };

@@ -79,5 +79,45 @@ module.exports = (knex) => {
         .catch((err) => reject(err));
     });
   };
+
+  module.getCartsCustomerByProductId = (id) => {
+    return new Promise((resolve, reject) => {
+      knex
+        .select(
+          "carts.id as _id",
+          "carts.quantity as _quantity",
+          "products.id as _product_id",
+          "products.name as _product_name",
+          "products.description as _product_description",
+          "products.image as _product_image",
+          "products.price as _product_price"
+        )
+        .where("products.id", id)
+        .first()
+        .table(table)
+        .innerJoin("products", "carts.product_id", "=", "products.id")
+        .then((res) => {
+          if (!res) {
+            resolve();
+          } else {
+            resolve({
+              id: res._id,
+              quantity: res._quantity,
+              product: {
+                id: res._product_id,
+                name: res._product_name,
+                description: res._product_description,
+                image: res._product_image,
+                price: res._product_price,
+              },
+            });
+          }
+        })
+        .catch((err) => {
+          console.log("asasasasa", err);
+          reject(err);
+        });
+    });
+  };
   return module;
 };

@@ -6,10 +6,13 @@ module.exports = (app, usecase) => {
         customer_id: req.user.type_id,
         address_id: req.body.address_id,
         coupon_id: req.body.coupon_id,
-        cart: req.body.cart,
+        products: req.body.products,
+        carts: req.body.carts,
         total: req.body.total,
       };
       await usecase.checkout(body);
+      await usecase.deleteCartsByIds(req.body.carts);
+
       res.status(200).json({
         message: "success",
       });
@@ -48,6 +51,7 @@ module.exports = (app, usecase) => {
 
       res.send(data);
     } catch (error) {
+      console.log("error", error);
       res.statusCode = 500;
       res.send(error);
     }

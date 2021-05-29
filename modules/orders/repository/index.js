@@ -4,7 +4,7 @@ const tableDetail = "orders_detail";
 module.exports = (knex) => {
   module.checkout = (body) => {
     knex.transaction(function (trx) {
-      carts = body.cart;
+      products = body.products;
       return trx
         .insert({
           total: body.total,
@@ -14,16 +14,21 @@ module.exports = (knex) => {
         })
         .into(tableHeader)
         .then((ids) => {
-          const newCart = carts.map((cart) => {
+          const newProduct = products.map((product) => {
             return {
               order_id: ids[0],
-              cart_id: cart,
+              product_id: product.product_id,
+              quantity: product.quantity,
               status: "waiting",
             };
           });
-          return trx(tableDetail).insert(newCart);
+          return trx(tableDetail).insert(newProduct);
         });
     });
+  };
+
+  module.deleteCartsByIds = (ids) => {
+    return knex.table("carts").whereIn("id", ids).del();
   };
 
   module.getAllOrdersByCustomer = async (customerId, pagination, status) => {
@@ -34,14 +39,13 @@ module.exports = (knex) => {
           "orders.id as _id",
           "orders.total as _total",
           "orders_detail.status as _status",
+          "orders_detail.quantity as _quantity",
           "addresses.id as _address_id",
           "addresses.address as _address_address",
           "coupons.id as _coupon_id",
           "coupons.description as _coupon_description",
           "coupons.percentage as _coupon_percentage",
           "coupons.fixedDiscount as _coupon_fixedDiscount",
-          "carts.id as _cart_id",
-          "carts.quantity as _cart_quantity",
           "products.id as _product_id",
           "products.name as _product_name",
           "products.description as _product_description",
@@ -53,12 +57,11 @@ module.exports = (knex) => {
         .where(
           "orders_detail.status",
           checkStatus ? "!=" : "=",
-          checkStatus ? "waiting" : status
+          checkStatus ? "" : status
         )
         .table(tableHeader)
         .innerJoin(tableDetail, "orders_detail.order_id", "=", "orders.id")
-        .innerJoin("carts", "carts.id", "=", "orders_detail.cart_id")
-        .innerJoin("products", "products.id", "=", "carts.product_id")
+        .innerJoin("products", "products.id", "=", "orders_detail.product_id")
         .innerJoin("addresses", "addresses.id", "=", "orders.address_id")
         .innerJoin("coupons", "coupons.id", "=", "orders.coupon_id")
         .paginate(pagination);
@@ -66,7 +69,7 @@ module.exports = (knex) => {
         return {
           id: item._id,
           status: item._status,
-          quantity: item._cart_quantity,
+          quantity: item._quantity,
           product: {
             id: item._product_id,
             name: item._product_name,
@@ -79,12 +82,6 @@ module.exports = (knex) => {
             id: item._address_id,
             address: item._address_address,
           },
-          // coupon: {
-          //   id: item._coupon_id,
-          //   description: item._coupon_description,
-          //   percentage: item._coupon_percentage,
-          //   fixedDiscount: item._coupon_fixedDiscount,
-          // },
         };
       });
       return {
@@ -96,20 +93,20 @@ module.exports = (knex) => {
     }
   };
 
+  // todo: update
   module.getOrdersById = async (id) => {
     const result = await knex
       .select(
         "orders.id as _id",
         "orders.total as _total",
         "orders.status as _status",
+        "orders_detail.quantity as _quantity",
         "addresses.id as _address_id",
         "addresses.address as _address_address",
         "coupons.id as _coupon_id",
         "coupons.description as _coupon_description",
         "coupons.percentage as _coupon_percentage",
         "coupons.fixedDiscount as _coupon_fixedDiscount",
-        "carts.id as _cart_id",
-        "carts.quantity as _cart_quantity",
         "products.id as _product_id",
         "products.name as _product_name",
         "products.description as _product_description",

@@ -3,8 +3,9 @@ exports.up = function (knex) {
     table.increments("id");
     table.integer("order_id").notNullable();
     table.foreign("order_id").references("orders.id");
-    table.integer("cart_id").notNullable();
-    table.foreign("cart_id").references("carts.id");
+    table.integer("quantity").notNullable();
+    table.integer("product_id").notNullable();
+    table.foreign("product_id").references("products.id");
     table.enum("status", [
       "waiting",
       "ordered",

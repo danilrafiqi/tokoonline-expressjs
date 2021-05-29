@@ -14,14 +14,8 @@ module.exports = (repository) => {
   module.cancelOrders = (id) => {
     return repository.cancelOrders(id);
   };
-  // module.updateCarts= (id,body)=>{
-  //     return repository.updateCarts(id,body)
-  // }
-  // module.deleteCarts= (id)=>{
-  //     return repository.deleteCarts(id)
-  // }
-  // module.deleteAllCarts= (userId)=>{
-  //     return repository.deleteAllCarts(userId)
-  // }
+  module.deleteCartsByIds = (ids) => {
+    return repository.deleteCartsByIds(ids);
+  };
   return module;
 };
